@@ -6,7 +6,6 @@ using System.Linq;
 using System;
 public static class PathFinding
 {
-    public static class Pathfinding {
         
         public static List<Tile> FindPath(Tile startNode, Tile targetNode) {
             var toSearch = new List<Tile>() { startNode };
@@ -30,10 +29,8 @@ public static class PathFinding
                         currentPathTile = currentPathTile.Connection;
                         count--;
                         if (count < 0) throw new Exception();
-                        Debug.Log("sdfsdf");
                     }
 
-                    Debug.Log(path.Count);
                     return path;
                 }
 
@@ -55,5 +52,5 @@ public static class PathFinding
             }
             return null;
         }
-    }
 }
+

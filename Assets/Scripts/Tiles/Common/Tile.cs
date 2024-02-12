@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using Entity;
 namespace GridManagment.Tiles
 {
     public abstract class Tile : MonoBehaviour
@@ -11,8 +12,7 @@ namespace GridManagment.Tiles
         public ICoords Coords;
         public List<Tile> Neighbors { get; protected set; }
         public static event Action<Tile> OnClickTile;
-        public virtual void Initialize( ICoords coords)
-        {
+        public virtual void Initialize( ICoords coords){
             Coords = coords;
             transform.position = Coords.Pos;
         }
@@ -21,7 +21,9 @@ namespace GridManagment.Tiles
         
         protected virtual void OnMouseDown() => OnClickTile?.Invoke(this);
         public abstract bool IsWalkable();
-        
+        public IEntity OccupiedEntity{get;protected set;}
+       
+       
         #region  PathFinding
         public Tile Connection { get; private set; }
         public float G { get; private set; }

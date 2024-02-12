@@ -1,23 +1,21 @@
 
+using Entity;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace GridManagment.Tiles
 {
-    public class GroundTile : Tile , ISelectable
+    public class GroundTile : Tile , ISelectable , ITileVisitable
     {
-        [SerializeField] private TileType tileType;
+        [SerializeField] private TileType _tileType;
         [SerializeField] private GameObject _highlight;
-        public override TileType GetTileType() => tileType;
+        public override TileType GetTileType() => _tileType;
+        public override bool IsWalkable() => OccupiedEntity == null;
 
-        public override bool IsWalkable() => true;
-        public void Select(){
-            
-            _highlight.SetActive(true);
-        }
-        public void UnSelect(){
-            _highlight.SetActive(false);
-        }
+        public void Accept(ITileVisitor tileVisitor) => tileVisitor.Visit(this);
+
+        public void Select() => _highlight.SetActive(true);
+        public void UnSelect() => _highlight.SetActive(false);
     }
 }
 

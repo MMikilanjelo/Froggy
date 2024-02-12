@@ -14,7 +14,7 @@ namespace GridManagment
         {
             _tileFactory = tileFactory;
         }
-        public  Dictionary<Vector2, Tile> GenerateGrid() {
+        public  Dictionary<Vector2, Tile> GenerateGrid(){
             var tiles = new Dictionary<Vector2, Tile>();
             var grid = new GameObject {
                 name = "Grid"
@@ -22,7 +22,7 @@ namespace GridManagment
             for (var r = 0; r < _gridDepth ; r++) {
                 var rOffset = r >> 1;
                 for (var q = -rOffset; q < _gridWidth - rOffset; q++) {
-                    var tile = _tileFactory.InstantiateTile(TileType.Wall , grid.transform , q ,r);
+                    var tile = _tileFactory.InstantiateTile(TileType.Ground , grid.transform , q ,r);
                     tiles.Add(tile.Coords.Pos,tile);
                 }
             }
