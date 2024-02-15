@@ -6,9 +6,12 @@ using System.Net.NetworkInformation;
 using System.Diagnostics.Tracing;
 
 public static class EventTypes
-{
-    public enum Test{
-        Test,
+{ 
+    public enum GlobalEvents
+    {
+        LevelStarted,
+        GridGenerated,
+        
     }
 }
 

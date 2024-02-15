@@ -1,4 +1,4 @@
-using GridManagment.Tiles;
+using GridManagement.Tiles;
 using UnityEngine;
 
 namespace Entity

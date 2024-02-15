@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
-namespace GridManagment.Tiles
+namespace GridManagement.Tiles
 {
     [CreateAssetMenu(fileName = "TileCollection" , menuName = "TileCollection/TileCollection")] 
     public class TileCollection : ScriptableObject

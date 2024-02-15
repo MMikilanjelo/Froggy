@@ -2,7 +2,7 @@
 using System.Net.Http.Headers;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
-namespace GridManagment.Tiles
+namespace GridManagement.Tiles
 {
     public class WallTile : Tile
     {

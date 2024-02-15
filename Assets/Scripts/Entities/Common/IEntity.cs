@@ -1,5 +1,5 @@
 
-using GridManagment.Tiles;
+using GridManagement.Tiles;
 
 namespace Entity
 {   

@@ -1,26 +1,18 @@
 using UnityEngine;
-using GridManagment.Tiles;
+using GridManagement.Tiles;
+using Managers.Selectors;
 
 namespace Managers
 {
-    public class SelectionManager : MonoBehaviour , ITileVisitor
+    public class SelectionManager : MonoBehaviour
     {
-        private ISelectable _selectedTile;
+        private TileSelectionHandler _tileSelectionHandler;
         private void OnEnable() => Tile.OnClickTile += DisplayTile;
         private void OnDisable() => Tile.OnClickTile -= DisplayTile;
+        private void Awake() => _tileSelectionHandler = new TileSelectionHandler();
         private void DisplayTile(Tile tile){
-            EventManager<EventTypes.Test , int>.TriggerEvent(EventTypes.Test.Test ,1);
-            Visit(tile as ISelectable);
-        }
-        public void Visit(ISelectable selectableTile)
-        {
-            if(_selectedTile != null){
-                _selectedTile.UnSelect();
-                _selectedTile = null;
-            }
-            _selectedTile = selectableTile;
-            _selectedTile.Select();
+            _tileSelectionHandler.Visit(tile as ISelectable);
+            Debug.Log(tile.OccupiedEntity);
         }
     }
-
 }

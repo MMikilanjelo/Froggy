@@ -3,7 +3,7 @@ using Entity;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace GridManagment.Tiles
+namespace GridManagement.Tiles
 {
     public class GroundTile : Tile , ISelectable , ITileVisitable
     {

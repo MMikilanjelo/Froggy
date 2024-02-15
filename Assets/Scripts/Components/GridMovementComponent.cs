@@ -1,8 +1,8 @@
-using Entity.Stats;
-using GridManagment.Tiles;
-using System.Collections;
+
+using GridManagement.Tiles;
 using System.Collections.Generic;
 using UnityEngine;
+
 namespace Entity.Components
 {
     public class GridMovementComponent : MonoBehaviour

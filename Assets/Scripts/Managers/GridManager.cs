@@ -1,13 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using GridManagment.Tiles;
+using Entity;
+using GridManagement.Tiles;
+using Managers;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
-namespace GridManagment
+namespace GridManagement
 {   
     public class GridManager : MonoBehaviour
     {
@@ -19,23 +21,17 @@ namespace GridManagment
         private void Awake(){
             Instance = this;
             _tileFactory.Initialize(_tileCollection);
-            EventManager<EventTypes.Test  , int>.RegisterEvent(EventTypes.Test.Test , (int a ) => Test());
             _scriptableGrid.Initialize(_tileFactory);
-            
+        }
+        public void GenerateGrid()
+        {
             _tilesInGrid = _scriptableGrid.GenerateGrid();
-
             foreach (var tile in _tilesInGrid.Values) tile.CacheNeighbors();
+            EntitySpawnerManager.Instance.SpawnHero(GetTileAtPosition(new Vector2(0 , 0)), EntityTypes.Heroes.Fish);
         }
         public Tile GetTileAtPosition(Vector2 position){
             if(_tilesInGrid.TryGetValue(position, out var tile)) return tile;
             return null;
-        }
-        private void Test(int _test){
-            Debug.Log($"Cools coolss  {_test}");
-        }
-        private void Test()
-        {
-            Debug.Log("ahhahhah");
         }
 
     }

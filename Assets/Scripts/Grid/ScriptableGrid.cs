@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GridManagment.Tiles;
-namespace GridManagment
+using GridManagement.Tiles;
+namespace GridManagement
 {
     [CreateAssetMenu(fileName = "New Scriptable Hex Grid")]
     public class ScriptableGrid : ScriptableObject
