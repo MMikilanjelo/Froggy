@@ -8,9 +8,7 @@ namespace GridManagement.Tiles
     {
         [SerializeField] private TileType _tileType;
         public override TileType GetTileType() => _tileType;
-
         public override bool IsWalkable() => false;
-
     }
 }
 

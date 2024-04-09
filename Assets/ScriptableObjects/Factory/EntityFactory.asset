@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 211625605de7a344db4d88d8c8458701, type: 3}
   m_Name: EntityFactory
   m_EditorClassIdentifier: 
+  Fish: {fileID: 655842800597729637, guid: 50ee9f423124ac0498d47c540e1f6732, type: 3}

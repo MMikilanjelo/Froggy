@@ -1,9 +1,8 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using System.Linq;
 using System;
-using Entity;
+using Entities;
 namespace GridManagement.Tiles
 {
     public abstract class Tile : MonoBehaviour
@@ -21,8 +20,8 @@ namespace GridManagement.Tiles
         
         protected virtual void OnMouseDown() => OnClickTile?.Invoke(this);
         public abstract bool IsWalkable();
-        public IEntity OccupiedEntity{get;protected set;}
-        public void SetOccupiedEntity(IEntity entity) => OccupiedEntity = entity;
+        public Entity OccupiedEntity{get;protected set;}
+        public void SetOccupiedEntity(Entity entity) => OccupiedEntity = entity;
        
        
         #region  PathFinding

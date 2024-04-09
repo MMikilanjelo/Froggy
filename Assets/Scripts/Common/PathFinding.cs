@@ -6,51 +6,57 @@ using System.Linq;
 using System;
 public static class PathFinding
 {
-        
-        public static List<Tile> FindPath(Tile startNode, Tile targetNode) {
-            var toSearch = new List<Tile>() { startNode };
-            var processed = new List<Tile>();
+    public static List<Tile> FindPath(Tile startNode, Tile targetNode)
+    {
+        var toSearch = new List<Tile>() { startNode };
+        var processed = new List<Tile>();
+        while (toSearch.Any())
+        {
+            var current = toSearch[0];
+            foreach (var t in toSearch)
+                if (t.F < current.F || t.F == current.F && t.H < current.H) current = t;
 
-            while (toSearch.Any()) {
-                var current = toSearch[0];
-                foreach (var t in toSearch) 
-                    if (t.F < current.F || t.F == current.F && t.H < current.H) current = t;
+            processed.Add(current);
+            toSearch.Remove(current);
 
-                processed.Add(current);
-                toSearch.Remove(current);
-            
 
-                if (current == targetNode) {
-                    var currentPathTile = targetNode;
-                    var path = new List<Tile>();
-                    var count = 100;
-                    while (currentPathTile != startNode) {
-                        path.Add(currentPathTile);
-                        currentPathTile = currentPathTile.Connection;
-                        count--;
-                        if (count < 0) throw new Exception();
-                    }
-
-                    return path;
+            if (current == targetNode)
+            {
+                var currentPathTile = targetNode;
+                var path = new List<Tile>();
+                var count = 100;
+                while (currentPathTile != startNode)
+                {
+                    path.Add(currentPathTile);
+                    currentPathTile = currentPathTile.Connection;
+                    count--;
+                    if (count < 0) throw new Exception();
                 }
 
-                foreach (var neighbor in current.Neighbors.Where(t => t.IsWalkable() && !processed.Contains(t))) {
-                    var inSearch = toSearch.Contains(neighbor);
+                path.Reverse();
+                return path;
+            }
 
-                    var costToNeighbor = current.G + current.GetDistance(neighbor);
+            foreach (var neighbor in current.Neighbors.Where(t => t.IsWalkable() && !processed.Contains(t)))
+            {
+                var inSearch = toSearch.Contains(neighbor);
 
-                    if (!inSearch || costToNeighbor < neighbor.G) {
-                        neighbor.SetG(costToNeighbor);
-                        neighbor.SetConnection(current);
+                var costToNeighbor = current.G + current.GetDistance(neighbor);
 
-                        if (!inSearch) {
-                            neighbor.SetH(neighbor.GetDistance(targetNode));
-                            toSearch.Add(neighbor);
-                        }
+                if (!inSearch || costToNeighbor < neighbor.G)
+                {
+                    neighbor.SetG(costToNeighbor);
+                    neighbor.SetConnection(current);
+
+                    if (!inSearch)
+                    {
+                        neighbor.SetH(neighbor.GetDistance(targetNode));
+                        toSearch.Add(neighbor);
                     }
                 }
             }
-            return null;
         }
+        return null;
+    }
 }
 

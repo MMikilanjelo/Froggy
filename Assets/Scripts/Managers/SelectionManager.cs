@@ -6,13 +6,25 @@ namespace Managers
 {
     public class SelectionManager : MonoBehaviour
     {
+        public static  SelectionManager Instance;
         private TileSelectionHandler _tileSelectionHandler;
-        private void OnEnable() => Tile.OnClickTile += DisplayTile;
-        private void OnDisable() => Tile.OnClickTile -= DisplayTile;
-        private void Awake() => _tileSelectionHandler = new TileSelectionHandler();
-        private void DisplayTile(Tile tile){
-            _tileSelectionHandler.Visit(tile as ISelectable);
-            Debug.Log(tile.OccupiedEntity);
+
+        private void Awake() {
+            Instance = this;
+            _tileSelectionHandler = new TileSelectionHandler();
         }
+        public void SelectTile(Tile tile) {
+            _tileSelectionHandler.Visit(tile as ISelectable);
+        }
+        public void HightLightTiles(){
+            _tileSelectionHandler.HightLightTiles();
+        }
+        public void UnHightLightTiles(){
+            _tileSelectionHandler.UnHightLightTiles();
+        }
+    }
+    public enum SelectionType{
+        MoveSelection,
+        
     }
 }

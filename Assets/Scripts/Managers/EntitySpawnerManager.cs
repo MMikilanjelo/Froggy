@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Entity;
+using Entities;
 using GridManagement.Tiles;
 using UnityEngine;
 

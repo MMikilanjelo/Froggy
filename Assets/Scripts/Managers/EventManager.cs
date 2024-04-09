@@ -13,6 +13,10 @@ public static class EventTypes
         GridGenerated,
         
     }
+    public enum InGameEvents{
+        DisplayPath,
+        
+    }
 }
 
 

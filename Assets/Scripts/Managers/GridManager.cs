@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Entity;
+using Entities;
 using GridManagement.Tiles;
 using Managers;
 using TMPro;
@@ -27,7 +27,6 @@ namespace GridManagement
         {
             _tilesInGrid = _scriptableGrid.GenerateGrid();
             foreach (var tile in _tilesInGrid.Values) tile.CacheNeighbors();
-            EntitySpawnerManager.Instance.SpawnHero(GetTileAtPosition(new Vector2(0 , 0)), EntityTypes.Heroes.Fish);
         }
         public Tile GetTileAtPosition(Vector2 position){
             if(_tilesInGrid.TryGetValue(position, out var tile)) return tile;

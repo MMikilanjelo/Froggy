@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Entity
+namespace Entities
 {
     [CreateAssetMenu(fileName ="EntityFactory" , menuName = "Factory/EntityFactory")]
 

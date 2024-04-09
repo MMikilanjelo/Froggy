@@ -1,5 +1,5 @@
 
-namespace Entity.Stats
+namespace Entities.Stats
 {
     public interface IStat 
     {
