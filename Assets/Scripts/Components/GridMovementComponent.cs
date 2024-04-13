@@ -1,5 +1,6 @@
 using GridManagement.Tiles;
 using Managers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,19 +12,19 @@ namespace Entities.Components
         private Entity _entity;
         private Coroutine _moveCoroutine;
         private float _moveSpeed = 10.0f;
-        public GridMovementComponent(Entity entity){
+        public event Action MovementFinished;
+        public GridMovementComponent(Entity entity) {
             _entity = entity;
         }
-        public void Move(Tile targetTile)
-        {
-            if(targetTile.OccupiedEntity != null){
+        public void Move(Tile targetTile) {
+            if(targetTile.OccupiedEntity != null || targetTile == null || _entity.OccupiedTile == null){
                 return;
             }
             SelectionManager.Instance.UnHightLightTiles();
             List<Tile> path = FindPath(_entity.OccupiedTile, targetTile);
 
+
             if(path != null) {
-                _entity.isTakingAction = true;
                 _entity.OccupiedTile.SetOccupiedEntity(null);
                 _entity.SetOccupiedTile(null);  
                 foreach(var tile in path){
@@ -34,6 +35,9 @@ namespace Entities.Components
                 }
                 _moveCoroutine = _entity.StartCoroutine(MoveAlongPath(path));
                 SelectionManager.Instance.HightLightTiles();
+            }
+            else{
+                MovementFinished?.Invoke();
             }
         }   
         private IEnumerator MoveAlongPath(List<Tile> path){
@@ -50,13 +54,11 @@ namespace Entities.Components
             }
             _entity.SetOccupiedTile(path.Last());
             _entity.OccupiedTile.SetOccupiedEntity(_entity);
-            _entity.isTakingAction = false;
+            MovementFinished?.Invoke();
         }
 
-        private List<Tile> FindPath(Tile current, Tile target)
-        {
+        private List<Tile> FindPath(Tile current, Tile target) {
             return PathFinding.FindPath(current, target);
-
         }
     }
 }

@@ -27,7 +27,6 @@ namespace Managers
                     EntityTypes.Heroes.Fish);
                     ChangeGameState(GameState.HeroesTurn);  
                     break;
-              
                 case GameState.SpawnEnemies:
                     break;
                 case GameState.HeroesTurn:

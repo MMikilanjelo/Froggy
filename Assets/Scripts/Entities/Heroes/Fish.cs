@@ -1,18 +1,14 @@
 using GridManagement.Tiles;
 using Entities.Components;
-using Managers;
-using UnityEngine;
-using System.Collections;
 using Entities.Commands;
+
 namespace Entities
 {
-    public class Fish : Hero
-    {
-        CommandManager commandManager = new CommandManager();
+    public class Fish : Hero {
+        CommandManager commandManager;
         DelegateStateMachine _stateMachine;
-        private GridMovementComponent _gridMovementComponent;
         public  void Awake(){
-            _gridMovementComponent = new GridMovementComponent(this);
+            commandManager = new CommandManager(this);
             _stateMachine = new DelegateStateMachine();
             _stateMachine.AddState(MoveState);
         }
@@ -22,21 +18,15 @@ namespace Entities
         private void MoveState(){
         }
         private void OnEnable(){
-            commandManager.Test();
-           Tile.OnClickTile += SelectTile;
+            commandManager.SetUpCommands();
+            Tile.OnClickTile += SelectTile;
         }
         private void OnDisable() {
             Tile.OnClickTile -= SelectTile;
         }
         private void SelectTile(Tile selectedTile){
-            // if(GameManager.Instance.GameState != GameState.HeroesTurn || isTakingAction){
-            //     return;
-            // }
-            // _gridMovementComponent.Move(selectedTile);
-            //commandManager.Test();
-
+            SelectedTile = selectedTile;
             commandManager.Test2();
-
         }
     }
 }
