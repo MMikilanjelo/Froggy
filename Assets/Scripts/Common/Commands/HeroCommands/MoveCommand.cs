@@ -1,6 +1,7 @@
 using System;
 using Entities.Components;
 using UnityEngine;
+using Managers;
 namespace Entities.Commands
 {
     public class MoveCommand : HeroCommand
@@ -13,9 +14,9 @@ namespace Entities.Commands
 
         public override void Execute()
         {
-            if (hero != null && hero.SelectedTile != null){
+            if (hero != null && PlayerSelectionManager.Instance.SelectedTile != null){
                 isExecuting_ = true;
-                _gridMovementComponent.Move(hero.SelectedTile);
+                _gridMovementComponent.Move(PlayerSelectionManager.Instance.SelectedTile);
             }
         }
         private void OnMovementFinished(){

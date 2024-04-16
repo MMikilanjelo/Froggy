@@ -1,9 +1,8 @@
-using System.Collections;
+
 using System.Collections.Generic;
-using UnityEngine;
+
 using System;
-using System.Net.NetworkInformation;
-using System.Diagnostics.Tracing;
+
 
 public static class EventTypes
 { 
@@ -20,21 +19,47 @@ public static class EventTypes
 }
 
 
-public static class EventManager<TEventEnum, TEventArgs>
+public static class EventManager
 {
-    private static Dictionary<TEventEnum, Action<TEventArgs>> eventDictionary = new Dictionary<TEventEnum, Action<TEventArgs>>();
-    public static void RegisterEvent(TEventEnum eventType, Action<TEventArgs> eventHandler){
-        if(eventType == null) return;
-        
-        if (!eventDictionary.ContainsKey(eventType)) eventDictionary[eventType] = eventHandler;
-        
-        else  eventDictionary[eventType] += eventHandler;
-    }
-    public static void UnregisterEvent(TEventEnum eventType, Action<TEventArgs> eventHandler){
-        if (eventDictionary.ContainsKey(eventType))  eventDictionary[eventType] -= eventHandler;
+    private static Dictionary<object, Delegate> eventDictionaryWithParams = new Dictionary<object, Delegate>();
+    private static Dictionary<object, Delegate> eventDictionaryWithoutParams = new Dictionary<object, Delegate>();
+
+    public static void RegisterEvent<TEventEnum, TEventArgs>(TEventEnum eventType, Action<TEventArgs> eventHandler)
+    {
+        if (eventType == null) return;
+
+        if (!eventDictionaryWithParams.ContainsKey(eventType))
+            eventDictionaryWithParams[eventType] = eventHandler;
+        else
+            eventDictionaryWithParams[eventType] = Delegate.Combine(eventDictionaryWithParams[eventType], eventHandler);
     }
 
-    public static void TriggerEvent(TEventEnum eventType, TEventArgs eventArgs){
-        if (eventDictionary.ContainsKey(eventType)) eventDictionary[eventType].Invoke(eventArgs);
+    public static void RegisterEvent<TEventEnum>(TEventEnum eventType, Action eventHandler)
+    {
+        if (eventType == null) return;
+
+        if (!eventDictionaryWithoutParams.ContainsKey(eventType))
+            eventDictionaryWithoutParams[eventType] = eventHandler;
+        else
+            eventDictionaryWithoutParams[eventType] = Delegate.Combine(eventDictionaryWithoutParams[eventType], eventHandler);
+    }
+
+    public static void TriggerEvent<TEventEnum>(TEventEnum eventType)
+    {
+        if (eventDictionaryWithoutParams.TryGetValue(eventType, out Delegate del)){
+            if (del is Action action){
+                action();
+            }
+        }
+    }
+    public static void TriggerEvent<TEventEnum, TEventArgs>(TEventEnum eventType, TEventArgs eventArgs)
+    {
+        if (eventDictionaryWithParams.TryGetValue(eventType, out Delegate del))
+        {
+            if (del is Action<TEventArgs> action)
+            {
+                action(eventArgs);
+            }
+        }
     }
 }

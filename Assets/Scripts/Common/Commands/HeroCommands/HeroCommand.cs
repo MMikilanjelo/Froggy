@@ -20,14 +20,11 @@ namespace Entities.Commands
             var constructor = typeof(T).GetConstructor(new[] { typeof(Entity) });
 
             if (constructor != null){
-    
                 return (T)constructor.Invoke(new object[] { hero });
-                
             }
             else{
                 Debug.LogError($"No constructor found in {typeof(T)} that accepts an Entity parameter.");
                 return null;
-
             }
         }
     }

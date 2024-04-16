@@ -1,6 +1,7 @@
 using UnityEngine;
 using GridManagement.Tiles;
 using Managers.Selectors;
+using System.Collections.Generic;
 
 namespace Managers
 {
@@ -8,7 +9,6 @@ namespace Managers
     {
         public static  SelectionManager Instance;
         private TileSelectionHandler _tileSelectionHandler;
-
         private void Awake() {
             Instance = this;
             _tileSelectionHandler = new TileSelectionHandler();

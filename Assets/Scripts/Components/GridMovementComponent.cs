@@ -16,10 +16,13 @@ namespace Entities.Components
         public GridMovementComponent(Entity entity) {
             _entity = entity;
         }
+        private void UpdateEntityTiles(){}
         public void Move(Tile targetTile) {
             if(targetTile.OccupiedEntity != null || targetTile == null || _entity.OccupiedTile == null){
                 return;
             }
+            // EventManager.TriggerEvent(EventTypes.GlobalEvents.GridGenerated);
+            // EventManager.TriggerEvent(EventTypes.GlobalEvents.LevelStarted, 10);
             SelectionManager.Instance.UnHightLightTiles();
             List<Tile> path = FindPath(_entity.OccupiedTile, targetTile);
 
@@ -36,7 +39,7 @@ namespace Entities.Components
                 _moveCoroutine = _entity.StartCoroutine(MoveAlongPath(path));
                 SelectionManager.Instance.HightLightTiles();
             }
-            else{
+            else {
                 MovementFinished?.Invoke();
             }
         }   

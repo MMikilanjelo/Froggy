@@ -7,7 +7,7 @@ namespace Managers
 {
     public class GameManager : MonoBehaviour
     {
-        public static GameManager Instance;
+        public static GameManager Instance {get; private set;}
         private GameState _gameState;
         public GameState GameState => _gameState;
         private void Awake() => Instance = this;

@@ -1,32 +1,27 @@
 using GridManagement.Tiles;
-using Entities.Components;
 using Entities.Commands;
-
+using Managers;
+using UnityEngine;
 namespace Entities
 {
     public class Fish : Hero {
-        CommandManager commandManager;
-        DelegateStateMachine _stateMachine;
+        private ICommand moveCommand;
+        private CommandManager _commandManager;
         public  void Awake(){
-            commandManager = new CommandManager(this);
-            _stateMachine = new DelegateStateMachine();
-            _stateMachine.AddState(MoveState);
-        }
-        private void Update(){
-            _stateMachine.Update();
-        }
-        private void MoveState(){
+            _commandManager = new CommandManager(this);
+            moveCommand = HeroCommand.Create<MoveCommand>(this);
+            // EventManager.RegisterEvent(EventTypes.GlobalEvents.GridGenerated , Test);
+            // EventManager.RegisterEvent(EventTypes.GlobalEvents.LevelStarted, (int x) => testParams(x));
         }
         private void OnEnable(){
-            commandManager.SetUpCommands();
             Tile.OnClickTile += SelectTile;
         }
         private void OnDisable() {
             Tile.OnClickTile -= SelectTile;
         }
         private void SelectTile(Tile selectedTile){
-            SelectedTile = selectedTile;
-            commandManager.Test2();
+            PlayerSelectionManager.Instance.SetSelectedTile(selectedTile);
+            _commandManager.ExecuteSingleCommand(moveCommand);
         }
     }
 }
