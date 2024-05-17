@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 398745162490655121}
   m_Layer: 0
   m_Name: WallTile
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56ec1878ff761f34db7ee4ed698d830c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tileType: 1
+  tileType_: 1
 --- !u!212 &285936701880366533
 SpriteRenderer:
   m_ObjectHideFlags: 0

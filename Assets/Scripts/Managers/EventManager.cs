@@ -3,20 +3,21 @@ using System.Collections.Generic;
 
 using System;
 
+public enum GlobalEvents
+{
+    LevelStarted,
+    GridGenerated,
+    HeroSpawned,
+    HeroSelected,
 
-public static class EventTypes
-{ 
-    public enum GlobalEvents
-    {
-        LevelStarted,
-        GridGenerated,
-        
-    }
-    public enum InGameEvents{
-        DisplayPath,
-        
-    }
+
 }
+public enum InGameEvents
+{
+    DisplayPath,
+
+}
+
 
 
 public static class EventManager
@@ -46,8 +47,10 @@ public static class EventManager
 
     public static void TriggerEvent<TEventEnum>(TEventEnum eventType)
     {
-        if (eventDictionaryWithoutParams.TryGetValue(eventType, out Delegate del)){
-            if (del is Action action){
+        if (eventDictionaryWithoutParams.TryGetValue(eventType, out Delegate del))
+        {
+            if (del is Action action)
+            {
                 action();
             }
         }
@@ -59,6 +62,33 @@ public static class EventManager
             if (del is Action<TEventArgs> action)
             {
                 action(eventArgs);
+            }
+        }
+    }
+    public static void UnregisterEvent<TEventEnum, TEventArgs>(TEventEnum eventType, Action<TEventArgs> eventHandler)
+    {
+        if (eventType == null) return;
+
+        if (eventDictionaryWithParams.TryGetValue(eventType, out Delegate del))
+        {
+            if (del is Action<TEventArgs> action)
+            {
+                action -= eventHandler;
+                eventDictionaryWithParams[eventType] = action;
+            }
+        }
+    }
+
+    public static void UnregisterEvent<TEventEnum>(TEventEnum eventType, Action eventHandler)
+    {
+        if (eventType == null) return;
+
+        if (eventDictionaryWithoutParams.TryGetValue(eventType, out Delegate del))
+        {
+            if (del is Action action)
+            {
+                action -= eventHandler;
+                eventDictionaryWithoutParams[eventType] = action;
             }
         }
     }

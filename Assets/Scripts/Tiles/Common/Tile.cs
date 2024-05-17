@@ -7,7 +7,10 @@ namespace GridManagement.Tiles
 {
     public abstract class Tile : MonoBehaviour
     { 
-        public abstract TileType GetTileType();
+        [SerializeField] protected TileType tileType_;
+        public  TileType GetTileType(){
+            return tileType_;
+        }
         public ICoords Coords;
         public List<Tile> Neighbors { get; protected set; }
         public static event Action<Tile> OnClickTile;
@@ -44,13 +47,13 @@ namespace GridManagement.Tiles
         public Vector2 Pos { get; set; }
     }
     public struct HexCoords : ICoords {
-        private readonly int _q;
-        private readonly int _r;
+        private readonly int q_;
+        private readonly int r_;
 
         public HexCoords(int q, int r) {
-            _q = q;
-            _r = r;
-            Pos = _q * new Vector2(Sqrt3, 0) + _r * new Vector2(Sqrt3 / 2, 1.5f);
+            q_ = q;
+            r_ = r;
+            Pos = q_ * new Vector2(Sqrt3, 0) + r_ * new Vector2(Sqrt3 / 2, 1.5f);
         }
 
         public float GetDistance(ICoords other) => (this - (HexCoords)other).AxialLength();
@@ -60,15 +63,15 @@ namespace GridManagement.Tiles
         public Vector2 Pos { get; set; }
 
         private int AxialLength() {
-            if (_q == 0 && _r == 0) return 0;
-            if (_q > 0 && _r >= 0) return _q + _r;
-            if (_q <= 0 && _r > 0) return -_q < _r ? _r : -_q;
-            if (_q < 0) return -_q - _r;
-            return -_r > _q ? -_r : _q;
+            if (q_ == 0 && r_ == 0) return 0;
+            if (q_ > 0 && r_ >= 0) return q_ + r_;
+            if (q_ <= 0 && r_ > 0) return -q_ < r_ ? r_ : -q_;
+            if (q_ < 0) return -q_ - r_;
+            return -r_ > q_ ? -r_ : q_;
         }
 
         public static HexCoords operator -(HexCoords a, HexCoords b) {
-            return new HexCoords(a._q - b._q, a._r - b._r);
+            return new HexCoords(a.q_ - b.q_, a.r_ - b.r_);
         }
     }
 }

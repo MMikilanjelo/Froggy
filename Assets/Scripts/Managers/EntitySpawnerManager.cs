@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using Entities;
 using GridManagement.Tiles;
 using UnityEngine;
@@ -10,7 +9,8 @@ namespace Managers
     {
         [SerializeField] private EntityFactory _entityFactory;
         public static EntitySpawnerManager Instance;
-        private List<Hero> _heroes = new List<Hero>();
+        private  ObservableList<Hero> heroes_ = new ObservableList<Hero>();
+        public  ObservableList<Hero> Heroes => heroes_;
         private void Awake() => Instance = this;
         public void SpawnHero(Tile tile , EntityTypes.Heroes heroType)
         {
@@ -19,11 +19,21 @@ namespace Managers
                 var heroInstance =  Instantiate(hero , tile.Coords.Pos , Quaternion.identity);
                 heroInstance.SetOccupiedTile(tile);
                 tile.SetOccupiedEntity(heroInstance);
-                _heroes.Add(heroInstance);
+                
+                heroes_.Add(heroInstance);
+                EventBus<HeroSpawnedEvent>.Raise(new HeroSpawnedEvent {
+                    heroInstance = heroInstance
+                });
             }
         }
-        public void SpawnEnemy(Transform parent) {}
 
+        public void SpawnEnemy(Transform parent) {
+            
+        }
+                                
     }
-}
+    public struct HeroSpawnedEvent : IEvent{
+        public Hero heroInstance;
+    }
+}                   
 

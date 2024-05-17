@@ -13,7 +13,7 @@ namespace GridManagement
 {   
     public class GridManager : MonoBehaviour
     {
-        public static GridManager Instance;
+        public static GridManager Instance{get;private set;}
         [SerializeField] private TileFactory _tileFactory;
         [SerializeField] private TileCollection _tileCollection;
         [SerializeField] private ScriptableGrid _scriptableGrid;
@@ -26,13 +26,20 @@ namespace GridManagement
         public void GenerateGrid()
         {
             _tilesInGrid = _scriptableGrid.GenerateGrid();
-            foreach (var tile in _tilesInGrid.Values) tile.CacheNeighbors();
+            foreach (var tile in _tilesInGrid.Values) {
+                tile.CacheNeighbors();
+            }
+                
         }
         public Tile GetTileAtPosition(Vector2 position){
-            if(_tilesInGrid.TryGetValue(position, out var tile)) return tile;
+            if(_tilesInGrid.TryGetValue(position, out var tile)) {
+                return tile;
+            }
             return null;
         }
-
     }
 }
+
+                
+
 

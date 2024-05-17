@@ -1,30 +1,33 @@
 using UnityEngine;
-using GridManagement.Tiles;
-using Managers.Selectors;
-using System.Collections.Generic;
-
+using Selection;
+using Selection.RayProviders;
+using Selection.Selectors;
 namespace Managers
 {
     public class SelectionManager : MonoBehaviour
     {
-        public static  SelectionManager Instance;
-        private TileSelectionHandler _tileSelectionHandler;
-        private void Awake() {
+        private IRayProvider rayProvider_;
+        private ISelectionResponse selectionResponse_;
+        private ISelector selector_;
+        private Transform currentSelection_;
+        public static SelectionManager Instance {get;private set;}
+        private void Awake(){
             Instance = this;
-            _tileSelectionHandler = new TileSelectionHandler();
+            selectionResponse_ = GetComponent<ISelectionResponse>();
+            selector_ = new RayCastBasedTagSelector();
+            rayProvider_ = new MouseScreenRayProvider();
         }
-        public void SelectTile(Tile tile) {
-            _tileSelectionHandler.Visit(tile as ISelectable);
+        private void Update(){
+            if(currentSelection_ != null){
+                selectionResponse_?.OnDeselect(currentSelection_);
+            }
+            
+            selector_.Check(rayProvider_.CreateRay());
+            currentSelection_ = selector_.GetSelection();
+            
+            if(currentSelection_ != null){
+                selectionResponse_?.OnSelect(currentSelection_);
+            }
         }
-        public void HightLightTiles(){
-            _tileSelectionHandler.HightLightTiles();
-        }
-        public void UnHightLightTiles(){
-            _tileSelectionHandler.UnHightLightTiles();
-        }
-    }
-    public enum SelectionType{
-        MoveSelection,
-        
     }
 }

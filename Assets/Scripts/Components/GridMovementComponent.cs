@@ -9,35 +9,32 @@ namespace Entities.Components
 {
     public class GridMovementComponent 
     {
-        private Entity _entity;
-        private Coroutine _moveCoroutine;
-        private float _moveSpeed = 10.0f;
+        private Entity entity_;
+        private float moveSpeed_ = 10.0f;
+        private Coroutine moveCoroutine_;
         public event Action MovementFinished;
+        public event Action MovementStarted;
         public GridMovementComponent(Entity entity) {
-            _entity = entity;
+            entity_ = entity;
         }
-        private void UpdateEntityTiles(){}
+        private void UpdateEntityTileInfo(Tile tile){
+            entity_.OccupiedTile.SetOccupiedEntity(null);
+            entity_.SetOccupiedTile(tile);
+            entity_.OccupiedTile.SetOccupiedEntity(entity_);
+        }
         public void Move(Tile targetTile) {
-            if(targetTile.OccupiedEntity != null || targetTile == null || _entity.OccupiedTile == null){
+            if(targetTile == null || !targetTile.IsWalkable()){
                 return;
             }
-            // EventManager.TriggerEvent(EventTypes.GlobalEvents.GridGenerated);
-            // EventManager.TriggerEvent(EventTypes.GlobalEvents.LevelStarted, 10);
-            SelectionManager.Instance.UnHightLightTiles();
-            List<Tile> path = FindPath(_entity.OccupiedTile, targetTile);
-
+            List<Tile> path = FindPath(entity_.OccupiedTile, targetTile);
 
             if(path != null) {
-                _entity.OccupiedTile.SetOccupiedEntity(null);
-                _entity.SetOccupiedTile(null);  
-                foreach(var tile in path){
-                    SelectionManager.Instance.SelectTile(tile);
+                MovementStarted?.Invoke();
+                UpdateEntityTileInfo(path.Last());
+                if(moveCoroutine_ != null){
+                    entity_.StopCoroutine(moveCoroutine_);
                 }
-                if(_moveCoroutine != null){
-                    _entity.StopCoroutine(_moveCoroutine);
-                }
-                _moveCoroutine = _entity.StartCoroutine(MoveAlongPath(path));
-                SelectionManager.Instance.HightLightTiles();
+                moveCoroutine_ = entity_.StartCoroutine(MoveAlongPath(path));
             }
             else {
                 MovementFinished?.Invoke();
@@ -48,18 +45,16 @@ namespace Entities.Components
             while (startIndex < path.Count)
             {
                 Vector3 targetPosition = path[startIndex].Coords.Pos;
-                while (_entity.transform.position != targetPosition)
+                while (entity_.transform.position != targetPosition)
                 {
-                    _entity.transform.position = Vector3.MoveTowards(_entity.transform.position, targetPosition, _moveSpeed * Time.deltaTime);
+                    entity_.transform.position = Vector3.MoveTowards(entity_.transform.position, targetPosition, moveSpeed_ * Time.deltaTime);
                     yield return null;
                 }
                 startIndex++;
             }
-            _entity.SetOccupiedTile(path.Last());
-            _entity.OccupiedTile.SetOccupiedEntity(_entity);
+
             MovementFinished?.Invoke();
         }
-
         private List<Tile> FindPath(Tile current, Tile target) {
             return PathFinding.FindPath(current, target);
         }
