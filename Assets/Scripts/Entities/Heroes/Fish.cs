@@ -1,9 +1,6 @@
-using GridManagement.Tiles;
-using Entities.Commands;
-using Managers;
-using Architecture.AbilitySystem;
-using System.Collections.Generic;
-using UnityEngine;
+using Game.Entities;
+using Game.Architecture.AbilitySystem;
+
 namespace Entities
 {
     public class Fish : Hero {

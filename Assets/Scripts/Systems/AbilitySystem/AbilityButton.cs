@@ -2,7 +2,8 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
-namespace Architecture.AbilitySystem
+
+namespace Game.Architecture.AbilitySystem
 {
     public class AbilityButton : MonoBehaviour
     {

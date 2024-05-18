@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GridManagement.Tiles
+namespace Game.GridManagement.Tiles
 {
     [CreateAssetMenu(fileName ="TileData" ,menuName = "Tiles/TileData")]
     public class TileData : ScriptableObject

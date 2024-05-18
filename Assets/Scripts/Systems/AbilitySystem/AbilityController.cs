@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Entities;
-using Entities.Commands;
-using Managers;
-namespace Architecture.AbilitySystem
+using Game.Entities;
+using Game.Entities.Commands;
+using Game.Managers;
+namespace Game.Architecture.AbilitySystem
 {
     public class AbilityController
     {

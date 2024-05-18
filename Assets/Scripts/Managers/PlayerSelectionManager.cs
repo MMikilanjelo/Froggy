@@ -1,19 +1,12 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Entities;
-using GridManagement.Tiles;
-using Unity.VisualScripting;
-using UnityEngine;
-
-namespace Managers{
-    public class PlayerSelectionManager : MonoBehaviour
+using Game.Entities;
+using Game.GridManagement.Tiles;
+using Game.Utilities.Singletons;
+namespace Game.Managers{
+    public class PlayerSelectionManager : Singleton<PlayerSelectionManager>
     {
-        public static PlayerSelectionManager Instance {get; private set;}
         public Tile SelectedTile{get;private set;}
         public Hero SelectedHero{get;private set;}
-        private void Awake(){
-            Instance = this;
+        protected override void Awake(){
         }
         private void OnEnable(){
             Tile.OnClickTile += SetSelectedTile;

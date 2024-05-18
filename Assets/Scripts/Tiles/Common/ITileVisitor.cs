@@ -1,4 +1,4 @@
-using GridManagement.Tiles;
+using Game.GridManagement.Tiles;
 
 public interface ITileVisitor 
 {

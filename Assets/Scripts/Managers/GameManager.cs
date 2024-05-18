@@ -1,18 +1,17 @@
-using Entities;
-using GridManagement;
+using Game.Entities;
+using Game.GridManagement;
 using UnityEngine;
+using Game.Utilities.Singletons;
 
-
-namespace Managers
+namespace Game.Managers
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : Singleton<GameManager>
     {
-        public static GameManager Instance {get; private set;}
         private GameState gameState_;
         public GameState GameState => gameState_;
         private PlayerController player_;
-        private void Awake() {
-            Instance = this;
+        protected override void Awake() {
+            base.Awake();
             player_ = FindObjectOfType<PlayerController>();
         }
         private void Start() => ChangeGameState(GameState.GenerateGrid);

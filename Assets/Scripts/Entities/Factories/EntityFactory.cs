@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Entities
+namespace Game.Entities
 {
     [CreateAssetMenu(fileName ="EntityFactory" , menuName = "Factory/EntityFactory")]
 

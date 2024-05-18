@@ -1,6 +1,6 @@
 using Entities.Components;
-using Managers;
-namespace Entities.Commands
+using Game.Managers;
+namespace Game.Entities.Commands
 {
     public class MoveCommand : HeroCommand
     {

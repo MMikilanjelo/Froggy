@@ -1,8 +1,6 @@
-using System;
-using Entities.Components;
-using UnityEngine;
 
-namespace Entities.Commands
+using UnityEngine;
+namespace Game.Entities.Commands
 {
     public abstract class HeroCommand : ICommand
     {

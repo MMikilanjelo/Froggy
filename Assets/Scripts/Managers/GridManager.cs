@@ -1,25 +1,16 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Entities;
-using GridManagement.Tiles;
-using Managers;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.PackageManager;
 using UnityEngine;
-
-namespace GridManagement
+using Game.Utilities.Singletons;
+using Game.GridManagement.Tiles;
+namespace Game.GridManagement
 {   
-    public class GridManager : MonoBehaviour
+    public class GridManager : Singleton<GridManager>
     {
-        public static GridManager Instance{get;private set;}
         [SerializeField] private TileFactory _tileFactory;
         [SerializeField] private TileCollection _tileCollection;
         [SerializeField] private ScriptableGrid _scriptableGrid;
         public  IReadOnlyDictionary<Vector2 , Tile> _tilesInGrid;
-        private void Awake(){
-            Instance = this;
+        protected override  void Awake(){
             _tileFactory.Initialize(_tileCollection);
             _scriptableGrid.Initialize(_tileFactory);
         }

@@ -1,5 +1,5 @@
-using GridManagement.Tiles;
-using Managers;
+using Game.GridManagement.Tiles;
+using Game.Entities;
 using System;
 using System.Collections;
 using System.Collections.Generic;

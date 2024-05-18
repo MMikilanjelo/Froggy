@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Entities.Commands
+namespace Game.Entities.Commands
 {
     public class CommandManager
     {

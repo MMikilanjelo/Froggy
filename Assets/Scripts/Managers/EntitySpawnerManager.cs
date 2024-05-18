@@ -1,17 +1,16 @@
-
-using Entities;
-using GridManagement.Tiles;
+using Game.Entities;
+using Game.GridManagement.Tiles;
 using UnityEngine;
-
-namespace Managers
+using Game.Utilities.Singletons;
+namespace Game.Managers
 {
-    public class EntitySpawnerManager : MonoBehaviour
+    public class EntitySpawnerManager : Singleton<EntitySpawnerManager>
     {
         [SerializeField] private EntityFactory _entityFactory;
-        public static EntitySpawnerManager Instance;
         private  ObservableList<Hero> heroes_ = new ObservableList<Hero>();
         public  ObservableList<Hero> Heroes => heroes_;
-        private void Awake() => Instance = this;
+        protected override void Awake() => base.Awake();
+    
         public void SpawnHero(Tile tile , EntityTypes.Heroes heroType)
         {
             var hero = _entityFactory.GetHero(heroType);

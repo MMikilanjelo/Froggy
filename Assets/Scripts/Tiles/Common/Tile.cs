@@ -2,15 +2,15 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System;
-using Entities;
-namespace GridManagement.Tiles
+using Game.Entities;
+namespace Game.GridManagement.Tiles
 {
     public abstract class Tile : MonoBehaviour
     { 
+        #region SerializeFields
         [SerializeField] protected TileType tileType_;
-        public  TileType GetTileType(){
-            return tileType_;
-        }
+        #endregion
+        #region  Coordinates Initialization and Events
         public ICoords Coords;
         public List<Tile> Neighbors { get; protected set; }
         public static event Action<Tile> OnClickTile;
@@ -19,14 +19,17 @@ namespace GridManagement.Tiles
             transform.position = Coords.Pos;
         }
         public virtual void CacheNeighbors()=>
-            Neighbors = GridManager.Instance._tilesInGrid.Where(t => Coords.GetDistance(t.Value.Coords) == 1).Select(t=>t.Value).ToList();
-        
+            Neighbors = GridManager.Instance._tilesInGrid
+                .Where(t => Coords.GetDistance(t.Value.Coords) == 1)
+                .Select(t=>t.Value).ToList();
         protected virtual void OnMouseDown() => OnClickTile?.Invoke(this);
+        #endregion
+        #region  Tile Data
+        public  TileType GetTileType() => tileType_;
         public abstract bool IsWalkable();
         public Entity OccupiedEntity{get;protected set;}
         public void SetOccupiedEntity(Entity entity) => OccupiedEntity = entity;
-       
-       
+        #endregion
         #region  PathFinding
         public Tile Connection { get; private set; }
         public float G { get; private set; }

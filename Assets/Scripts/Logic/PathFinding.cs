@@ -1,7 +1,7 @@
-using System.Collections;
+
 using System.Collections.Generic;
-using UnityEngine;
-using GridManagement.Tiles;
+
+using Game.GridManagement.Tiles;
 using System.Linq;
 using System;
 public static class PathFinding

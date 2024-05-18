@@ -2,17 +2,17 @@ using UnityEngine;
 using Selection;
 using Selection.RayProviders;
 using Selection.Selectors;
-namespace Managers
+using Game.Utilities.Singletons;
+namespace Game.Mangers
 {
-    public class SelectionManager : MonoBehaviour
+    public class SelectionManager : Singleton<SelectionManager>
     {
+
         private IRayProvider rayProvider_;
         private ISelectionResponse selectionResponse_;
         private ISelector selector_;
         private Transform currentSelection_;
-        public static SelectionManager Instance {get;private set;}
-        private void Awake(){
-            Instance = this;
+        protected override void Awake(){
             selectionResponse_ = GetComponent<ISelectionResponse>();
             selector_ = new RayCastBasedTagSelector();
             rayProvider_ = new MouseScreenRayProvider();

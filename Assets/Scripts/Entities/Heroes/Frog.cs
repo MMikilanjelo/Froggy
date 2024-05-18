@@ -1,10 +1,5 @@
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Architecture.AbilitySystem;
-using Entities.Commands;
-using GridManagement.Tiles;
+using Game.Architecture.AbilitySystem;
+using Game.Entities;
 
 using UnityEngine;
 namespace Entities

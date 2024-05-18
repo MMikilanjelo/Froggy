@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Entities;
-using Managers;
+using Game.Entities;
+using Game.Managers;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour

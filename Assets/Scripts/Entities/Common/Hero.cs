@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Architecture.AbilitySystem;
+using Game.Architecture.AbilitySystem;
 using UnityEngine;
-namespace Entities
+namespace Game.Entities
 {
     public abstract class Hero : Entity
     {

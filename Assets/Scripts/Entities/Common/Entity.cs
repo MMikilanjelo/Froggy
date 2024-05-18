@@ -1,7 +1,7 @@
-using GridManagement.Tiles;
+using Game.GridManagement.Tiles;
 using UnityEngine;
 
-namespace Entities
+namespace Game.Entities
 {   
     public abstract class Entity : MonoBehaviour
     {

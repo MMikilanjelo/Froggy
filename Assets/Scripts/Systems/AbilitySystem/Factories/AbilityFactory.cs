@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Entities;
-using Entities.Commands;
+using Game.Entities;
+using Game.Entities.Commands;
 
-namespace Architecture.AbilitySystem{
+namespace Game.Architecture.AbilitySystem{
     public class AbilityFactory 
     {
         private Entity entity_;

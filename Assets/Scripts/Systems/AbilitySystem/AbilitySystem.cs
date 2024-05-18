@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Architecture.AbilitySystem
+namespace Game.Architecture.AbilitySystem
 {
     public class AbilitySystem : MonoBehaviour
     {

@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using Entities;
-using Managers;
-using UnityEngine;
+using Game.Entities;
+using Game.Managers;
 
-namespace Architecture.AbilitySystem{
+namespace Game.Architecture.AbilitySystem{
     public class AbilityModel
     {
         EventBinding<HeroSpawnedEvent> heroSpawnedEventBinding; 

@@ -1,6 +1,6 @@
-using Entities.Commands;
+using Game.Entities.Commands;
 
-namespace Architecture.AbilitySystem
+namespace Game.Architecture.AbilitySystem
 {
     public class Ability 
     {

@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GridManagement.Tiles;
+using Game.GridManagement.Tiles;
 using System.Linq;
 using System;
-namespace GridManagement
+namespace Game.GridManagement
 
 {
     [CreateAssetMenu(fileName = "New Scriptable Hex Grid")]
@@ -27,6 +27,7 @@ namespace GridManagement
                 var rOffset = r >> 1;
                 for (var q = -rOffset; q < _gridWidth - rOffset; q++) {
                     var tile = _tileFactory.InstantiateTile(PickRandom() , grid.transform , q ,r);
+                    Debug.Log($"{q} +  {r} + {tile.Coords.Pos}");
                     tiles.Add(tile.Coords.Pos,tile);
                 }
             }

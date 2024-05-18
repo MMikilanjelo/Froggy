@@ -1,5 +1,5 @@
-using UnityEngine;
-namespace GridManagement.Tiles
+
+namespace Game.GridManagement.Tiles
 {
     public class GroundTile : Tile , ITileVisitable
     {
