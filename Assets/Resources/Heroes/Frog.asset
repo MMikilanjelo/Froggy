@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2838b84f3b398c34ba187553aa2723db, type: 3}
   m_Name: Frog
   m_EditorClassIdentifier: 
+  Stats: {fileID: 11400000, guid: c6349cacd96233b43bed78946f523fab, type: 2}
   AbilitiesDefinitions:
   - abilityType: 0
     abilityData: {fileID: 11400000, guid: a6090bea12376694b96f577bf949dede, type: 2}

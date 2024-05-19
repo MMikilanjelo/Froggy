@@ -10,7 +10,6 @@ namespace Game.Managers {
 		public GameState GameState => gameState_;
 		public static event Action BeforeGameStateChanged = delegate { };
 		public static event Action AfterGameStateChanged = delegate { };
-
 		protected override void Awake() {
 			base.Awake();
 		}
@@ -29,24 +28,23 @@ namespace Game.Managers {
 					ChangeGameState(GameState.SpawnHeroes);
 					break;
 				case GameState.SpawnHeroes:
-					EntitySpawnerManager.Instance.SpawnHero(GridManager.Instance.GetTileAtPosition(new Vector2(0, 0)),
-							HeroTypes.Frog);
-					EntitySpawnerManager.Instance.SpawnHero(GridManager.Instance.GetTileAtPosition(new Vector2(Mathf.Sqrt(3), 0)),
-							HeroTypes.Fish);
-					SelectionManager.Instance.UpdateSelectedHero(EntitySpawnerManager.Instance.Heroes[0]);
-					ChangeGameState(GameState.PlayerTurn);
+					HandleSpawningHeroesState();
 					break;
 				case GameState.SpawnEnemies:
 					break;
 				case GameState.PlayerTurn:
-					
 					break;
 				case GameState.EnemiesTurn:
 					break;
 			}
 			AfterGameStateChanged?.Invoke();
 		}
-
+		private void HandleSpawningHeroesState() {
+			EntitySpawnerManager.Instance.SpawnHero(GridManager.Instance.GetTileAtPosition(new Vector2(0, 0)),HeroTypes.Frog);
+			EntitySpawnerManager.Instance.SpawnHero(GridManager.Instance.GetTileAtPosition(new Vector2(Mathf.Sqrt(3), 0)),HeroTypes.Fish);
+			SelectionManager.Instance.UpdateSelectedHero(EntitySpawnerManager.Instance.Heroes[0]);
+			ChangeGameState(GameState.PlayerTurn);
+		}
 	}
 }
 public enum GameState {

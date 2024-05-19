@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2838b84f3b398c34ba187553aa2723db, type: 3}
   m_Name: FIsh
   m_EditorClassIdentifier: 
+  Stats: {fileID: 11400000, guid: da32e00e9798a604a88763b2a60dafda, type: 2}
   AbilitiesDefinitions:
   - abilityType: 0
     abilityData: {fileID: 11400000, guid: 802794ef1678a2e43b363bc9132cd328, type: 2}
