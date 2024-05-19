@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.GridManagement.Tiles
@@ -8,7 +6,7 @@ namespace Game.GridManagement.Tiles
     public class TileData : ScriptableObject
     {
         [SerializeField] public Tile Prefab; 
-        public TileType Type => Prefab.GetTileType();
+        [SerializeField] public TileType Type;
     }
 }
 

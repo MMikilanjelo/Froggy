@@ -27,7 +27,6 @@ namespace Game.GridManagement
                 var rOffset = r >> 1;
                 for (var q = -rOffset; q < _gridWidth - rOffset; q++) {
                     var tile = _tileFactory.InstantiateTile(PickRandom() , grid.transform , q ,r);
-                    Debug.Log($"{q} +  {r} + {tile.Coords.Pos}");
                     tiles.Add(tile.Coords.Pos,tile);
                 }
             }

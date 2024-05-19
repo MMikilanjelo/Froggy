@@ -1,33 +1,37 @@
-using UnityEngine;
-using Selection;
-using Selection.RayProviders;
-using Selection.Selectors;
+using Game.Entities;
+using Game.GridManagement.Tiles;
 using Game.Utilities.Singletons;
-namespace Game.Mangers
-{
+namespace Game.Managers{
     public class SelectionManager : Singleton<SelectionManager>
     {
-
-        private IRayProvider rayProvider_;
-        private ISelectionResponse selectionResponse_;
-        private ISelector selector_;
-        private Transform currentSelection_;
+        public Tile SelectedTile{get;private set;}
+        public Hero SelectedHero{get;private set;}
         protected override void Awake(){
-            selectionResponse_ = GetComponent<ISelectionResponse>();
-            selector_ = new RayCastBasedTagSelector();
-            rayProvider_ = new MouseScreenRayProvider();
         }
-        private void Update(){
-            if(currentSelection_ != null){
-                selectionResponse_?.OnDeselect(currentSelection_);
-            }
-            
-            selector_.Check(rayProvider_.CreateRay());
-            currentSelection_ = selector_.GetSelection();
-            
-            if(currentSelection_ != null){
-                selectionResponse_?.OnSelect(currentSelection_);
+        private void OnEnable(){
+            Tile.OnClickTile += SetSelectedTile;
+            Tile.OnClickTile += SetSelectedHero;
+        }
+        private void OnDisable(){
+            Tile.OnClickTile -= SetSelectedTile;    
+            Tile.OnClickTile -= SetSelectedHero;
+        }
+        public void SetSelectedTile(Tile tile) => SelectedTile = tile;
+        public void SetSelectedHero(Tile tile){
+            if(tile.OccupiedEntity is Hero){
+                var hero =  tile.OccupiedEntity as Hero;
+                UpdateSelectedHero(hero);
             }
         }
+        public void UpdateSelectedHero(Hero hero) {
+            SelectedHero = hero;
+            EventBus<HeroSelectedEvent>.Raise(new HeroSelectedEvent {
+                hero = SelectedHero
+            });
+        } 
+            
+    }
+    public struct HeroSelectedEvent : IEvent{
+        public Hero hero;
     }
 }

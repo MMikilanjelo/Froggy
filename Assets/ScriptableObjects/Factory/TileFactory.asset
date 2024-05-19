@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f90fd8e7473a3243b50f93e0c098545, type: 3}
   m_Name: TileFactory
   m_EditorClassIdentifier: 
-  _defaultTile: {fileID: 2916446063362885938, guid: 477c47bfb3cee6f47bff0c3e1430ef4b, type: 3}
+  defaultTile_: {fileID: 2916446063362885938, guid: 477c47bfb3cee6f47bff0c3e1430ef4b, type: 3}

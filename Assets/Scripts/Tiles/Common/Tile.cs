@@ -7,9 +7,7 @@ namespace Game.GridManagement.Tiles
 {
     public abstract class Tile : MonoBehaviour
     { 
-        #region SerializeFields
-        [SerializeField] protected TileType tileType_;
-        #endregion
+
         #region  Coordinates Initialization and Events
         public ICoords Coords;
         public List<Tile> Neighbors { get; protected set; }
@@ -25,7 +23,6 @@ namespace Game.GridManagement.Tiles
         protected virtual void OnMouseDown() => OnClickTile?.Invoke(this);
         #endregion
         #region  Tile Data
-        public  TileType GetTileType() => tileType_;
         public abstract bool IsWalkable();
         public Entity OccupiedEntity{get;protected set;}
         public void SetOccupiedEntity(Entity entity) => OccupiedEntity = entity;

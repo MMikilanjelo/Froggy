@@ -10,6 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf8767f058c045741aa166adf1dc36b7, type: 3}
-  m_Name: WallTile
+  m_Name: GroundTile
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 7317096185167689002, guid: 83f9e8b3be7717b40b84d503265f66a8, type: 3}
+  Prefab: {fileID: 2916446063362885938, guid: 477c47bfb3cee6f47bff0c3e1430ef4b, type: 3}
+  Type: 0

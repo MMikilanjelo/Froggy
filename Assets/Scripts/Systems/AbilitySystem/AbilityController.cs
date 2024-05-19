@@ -9,8 +9,8 @@ namespace Game.Architecture.AbilitySystem
 
         private readonly AbilityModel model_;
         private readonly AbilityView view_;
-        private readonly Queue<ICommand> abilityQueue = new Queue<ICommand>();
-        private Hero hero => PlayerSelectionManager.Instance.SelectedHero;
+        private readonly Queue<ICommand> abilityQueue_ = new Queue<ICommand>();
+        private Hero hero => SelectionManager.Instance.SelectedHero;
         private AbilityController (AbilityView abilityView , AbilityModel abilityModel){
             view_ = abilityView;
             model_ = abilityModel;
@@ -38,7 +38,7 @@ namespace Game.Architecture.AbilitySystem
         private void OnAbilityButtonPressed(int index){
             if(model_.abilities_.TryGetValue(hero , out ObservableList<Ability> abilities)){
                 if (abilities[index] != null) {
-                    abilityQueue.Enqueue(abilities[index].GetAbilityCommand());
+                    abilityQueue_.Enqueue(abilities[index].GetAbilityCommand());
                     var command = abilities[index].GetAbilityCommand();
                     command.Execute();
                 }

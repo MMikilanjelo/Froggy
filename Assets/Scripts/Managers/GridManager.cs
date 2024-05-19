@@ -7,11 +7,9 @@ namespace Game.GridManagement
     public class GridManager : Singleton<GridManager>
     {
         [SerializeField] private TileFactory _tileFactory;
-        [SerializeField] private TileCollection _tileCollection;
         [SerializeField] private ScriptableGrid _scriptableGrid;
         public  IReadOnlyDictionary<Vector2 , Tile> _tilesInGrid;
         protected override  void Awake(){
-            _tileFactory.Initialize(_tileCollection);
             _scriptableGrid.Initialize(_tileFactory);
         }
         public void GenerateGrid()
