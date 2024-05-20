@@ -17,7 +17,7 @@ namespace Game.GridManagement.Tiles
             transform.position = Coords.Pos;
         }
         public virtual void CacheNeighbors()=>
-            Neighbors = GridManager.Instance._tilesInGrid
+            Neighbors = GridManager.Instance.TilesInGrid
                 .Where(t => Coords.GetDistance(t.Value.Coords) == 1)
                 .Select(t=>t.Value).ToList();
         protected virtual void OnMouseDown() => OnClickTile?.Invoke(this);

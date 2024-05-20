@@ -30,12 +30,21 @@ namespace Game.Architecture.AbilitySystem {
 			return abilities;
 		}
 	}
+
+
+
+
+
+
 	public enum AbilityType {
 		MoveAbility,
 		AttackAbility,
 	}
 
+
+
 	[Serializable]
+
 	public struct AbilityDefinition {
 		public AbilityType abilityType;
 		public AbilityData abilityData;

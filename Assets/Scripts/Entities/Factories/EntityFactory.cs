@@ -19,7 +19,7 @@ namespace Game.Entities
 		}
 		private void InitializeHero(HeroData heroData, Hero heroInstance, Tile tile)
 		{
-			heroInstance.InitializeAbilities(heroData.AbilitiesDefinitions);
+			heroInstance.Initialize(heroData.AbilitiesDefinitions , heroData.Stats);
 			heroInstance.SetOccupiedTile(tile);
 			tile.SetOccupiedEntity(heroInstance);
 		}

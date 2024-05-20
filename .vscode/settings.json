@@ -59,6 +59,7 @@
     "dotnet.defaultSolution": "Froggy.sln",
     "cSpell.words": [
         "Behaviour",
+        "Interactable",
         "scriptable"
     ]
 }
