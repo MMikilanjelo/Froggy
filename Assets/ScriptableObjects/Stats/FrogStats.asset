@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: FrogStats
   m_EditorClassIdentifier: 
   movmentDistance_: 5
-  actionsCount_: 1
+  actionsCount_: 0

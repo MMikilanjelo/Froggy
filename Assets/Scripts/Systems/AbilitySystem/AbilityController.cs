@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using Game.Entities;
-using Game.Entities.Commands;
 using Game.Managers;
 using Game.Helpers;
-using UnityEngine;
+
 namespace Game.Architecture.AbilitySystem {
 	public class AbilityController {
 
@@ -30,15 +28,15 @@ namespace Game.Architecture.AbilitySystem {
 			for (int i = 0; i < view_.buttons.Length; i++) {
 				view_.buttons[i].RegisterListener(OnAbilityButtonPressed);
 			}
-			GameManager.AfterGameStateChanged += () => {
-				view_.SetButtonsInteractable(GameHelpers.IsPlayerTurn() && hero_.CanPerformActions());
+			GameManager.AfterGameStateChanged += (GameState gameState) => {
+				view_.SetButtonsInteractable(GameHelpers.IsPlayerTurn(gameState) && hero_.CanPerformActions());
 			};
 		
 		}
 		private void UpdateButtons() {
 			if (model_.abilities_.TryGetValue(hero_, out ObservableList<Ability> abilities)) {
 				view_.UpdateButtonSprites(abilities);
-				view_.SetButtonsInteractable(hero_.CanPerformActions() && GameHelpers.IsPlayerTurn());
+				view_.SetButtonsInteractable(hero_.CanPerformActions() && GameHelpers.IsPlayerTurn(GameManager.Instance.GameState));
 			}
 		}
 		private void OnAbilityButtonPressed(int index) {

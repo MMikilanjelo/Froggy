@@ -6,22 +6,22 @@ namespace Game.GridManagement
 {   
     public class GridManager : Singleton<GridManager>
     {
-        [SerializeField] private TileFactory _tileFactory;
-        [SerializeField] private ScriptableGrid _scriptableGrid;
-        public  IReadOnlyDictionary<Vector2 , Tile> _tilesInGrid;
+        [SerializeField] private TileFactory tileFactory_;
+        [SerializeField] private ScriptableGrid scriptableGrid_;
+        public  IReadOnlyDictionary<Vector2 , Tile> TilesInGrid;
         protected override  void Awake(){
-            _scriptableGrid.Initialize(_tileFactory);
+            scriptableGrid_.Initialize(tileFactory_);
         }
         public void GenerateGrid()
         {
-            _tilesInGrid = _scriptableGrid.GenerateGrid();
-            foreach (var tile in _tilesInGrid.Values) {
+            TilesInGrid = scriptableGrid_.GenerateGrid();
+            foreach (var tile in TilesInGrid.Values) {
                 tile.CacheNeighbors();
             }
                 
         }
         public Tile GetTileAtPosition(Vector2 position){
-            if(_tilesInGrid.TryGetValue(position, out var tile)) {
+            if(TilesInGrid.TryGetValue(position, out var tile)) {
                 return tile;
             }
             return null;
