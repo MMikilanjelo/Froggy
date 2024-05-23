@@ -12,9 +12,10 @@ namespace Game.Architecture.AbilitySystem {
 		}
 		private void OnHeroSpawned(HeroSpawnedEvent heroSpawnedEvent) {
 			var heroAbilities = new ObservableList<Ability>();
-			foreach (var ability in heroSpawnedEvent.heroInstance.Abilities) {
-				heroAbilities.Add(ability);
+			for(int i = 0; i< heroSpawnedEvent.heroInstance.Abilities.Count ; i ++){
+				heroAbilities.Add(heroSpawnedEvent.heroInstance.Abilities[i]);
 			}
+
 			abilities_.Add(heroSpawnedEvent.heroInstance, heroAbilities);
 		}
 	}

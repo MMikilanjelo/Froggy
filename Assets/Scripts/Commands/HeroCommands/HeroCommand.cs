@@ -12,6 +12,7 @@ namespace Game.Entities.Commands {
 		}
 
 		public abstract void Execute();
+		public abstract void Cancel();
 		public static T Create<T>(Entity entity_) where T : HeroCommand {
 			var constructor = typeof(T).GetConstructor(new[] { typeof(Entity) });
 
@@ -30,6 +31,8 @@ namespace Game.Entities.Commands {
 		}
 
 		public override void Execute() {
+		}
+		public override void Cancel() {
 		}
 	}
 }

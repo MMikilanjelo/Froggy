@@ -1,6 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Game.Entities;
+using Game.Helpers;
 using Game.Managers;
+using Unity.Collections;
 using UnityEngine;
 namespace Game.Controllers {
 
@@ -25,24 +29,28 @@ namespace Game.Controllers {
 			TurnManager.PlayerTurn -= OnPlayerTurn;
 			TurnManager.EndOfPlayerTurn -= OnEndOfPlayerTurn;
 		}
+
 		private void OnStartPlayerTurn() {
-			Debug.Log("Do some logic related to starting of Player Turn");
+			StartCoroutine(PlayerTurnCoroutine());
+		}
+		private IEnumerator PlayerTurnCoroutine() {
+			yield return new WaitUntil(() => GameHelpers.IsRunOutOfActions(heroes_ as List<Hero>));
+			GameManager.Instance.ChangeGameState(GameState.EnemyTurn);
 		}
 		private void OnPlayerTurn() {
-			Debug.Log("Starting courutine of player turn");
 		}
 		private void OnEndOfPlayerTurn() {
-			Debug.Log("CleanUp of Player Turn");
+			StopCoroutine(PlayerTurnCoroutine());
 		}
 
-		private void Update() {
-			if (Input.GetKeyDown(KeyCode.Space)) {
-				GameManager.Instance.ChangeGameState(GameState.EnemyTurn);
-			}
-			if (Input.GetKeyDown(KeyCode.W)) {
-				GameManager.Instance.ChangeGameState(GameState.PlayerTurn);
-			}
-		}
+		// private void Update() {
+		// 	if (Input.GetKeyDown(KeyCode.Space)) {
+		// 		GameManager.Instance.ChangeGameState(GameState.EnemyTurn);
+		// 	}
+		// 	if (Input.GetKeyDown(KeyCode.W)) {
+		// 		GameManager.Instance.ChangeGameState(GameState.PlayerTurn);
+		// 	}
+		// }
 		private void OnHeroSpawned(HeroSpawnedEvent heroSpawnedEvent) {
 			heroes_.Add(heroSpawnedEvent.heroInstance);
 		}

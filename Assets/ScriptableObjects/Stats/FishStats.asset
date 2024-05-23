@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: FishStats
   m_EditorClassIdentifier: 
   movmentDistance_: 10
-  actionsCount_: 0
+  actionsCount_: 2

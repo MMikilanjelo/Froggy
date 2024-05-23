@@ -20,11 +20,6 @@ namespace Entities {
 		private void SetUpComponents() {
 			TurnCounterComponent = new TurnCounterComponent(Stats.ActionsCount);
 		}
-		private void Update(){
-			if(Input.GetKeyDown(KeyCode.Space)){
-				TurnCounterComponent.PerformAction();
-			}
-		}
 	
 	}
 }

@@ -6,8 +6,7 @@ using System;
 
 namespace Game.Managers {
 	public class GameManager : Singleton<GameManager> {
-		private GameState gameState_;
-		public GameState GameState => gameState_;
+		public GameState GameState {get;private set;}
 		public static event Action<GameState> BeforeGameStateChanged = delegate { };
 		public static event Action<GameState> AfterGameStateChanged = delegate { };
 		protected override void Awake() {
@@ -15,24 +14,21 @@ namespace Game.Managers {
 		}
 		private void Start() => ChangeGameState(GameState.SetUp);
 		public void ChangeGameState(GameState newState) {
-			if (gameState_ == newState) {
+			if (GameState == newState) {
 				Debug.LogWarning($"Ignoring redundant state change: {newState}");
 				return;
 			}
 			BeforeGameStateChanged?.Invoke(newState);
-
-			gameState_ = newState;
+			GameState = newState;
 			switch (newState) {
 				case GameState.SetUp:
 					ChangeGameState(GameState.GenerateGrid);
 					break;
 				case GameState.GenerateGrid:
 					GridManager.Instance.GenerateGrid();
-
 					ChangeGameState(GameState.SpawnHeroes);
 					break;
 				case GameState.SpawnHeroes:
-
 					HandleSpawningHeroesState();
 					break;
 				case GameState.SpawnEnemies:
@@ -43,6 +39,7 @@ namespace Game.Managers {
 				case GameState.EnemyTurn:
 					break;
 			}
+			
 			AfterGameStateChanged?.Invoke(newState);
 		}
 		private void HandleSpawningHeroesState() {
@@ -53,13 +50,15 @@ namespace Game.Managers {
 		}
 	}
 }
+[Serializable]
 public enum GameState {
-	SetUp = -1,
-	GenerateGrid = 0,
-	SpawnHeroes = 1,
-	SpawnEnemies = 2,
-	PlayerTurn = 3,
-	EnemyTurn = 4,
+	None = 0,
+	SetUp = 1,
+	GenerateGrid = 2,
+	SpawnHeroes = 3,
+	SpawnEnemies =4,
+	PlayerTurn = 5,
+	EnemyTurn = 6,
 }
 
 

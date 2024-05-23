@@ -33,7 +33,7 @@ namespace Game.Managers {
 			}
 			if (GameHelpers.IsEnemyTurn(GameManager.Instance.GameState) && newGameState == GameState.PlayerTurn) {
 				EndOfEnemyTurn?.Invoke();
-			}	
+			}
 		}
 
 		private void OnAfterGameStateChanged(GameState gameState) {

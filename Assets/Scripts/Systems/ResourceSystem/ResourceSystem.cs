@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using Game.Utilities.Singletons;
 using Game.GridManagement.Tiles;
@@ -21,6 +20,7 @@ namespace Game.Systems {
 
 			heroDataCollection_ = HeroDatas.ToDictionary(h => h.Type, h => h);
 			tileCollection_ = Tiles.ToDictionary(t => t.Type, t => t);
+			
 		}
 		private bool TryGetData<K, T>(K key, Dictionary<K, T> collection, out T data) where T : class {
 			return collection.TryGetValue(key, out data);

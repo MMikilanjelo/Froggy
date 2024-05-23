@@ -1,5 +1,7 @@
 using Game.Entities.Components;
+using Game.GridManagement.Tiles;
 using Game.Managers;
+using UnityEngine;
 namespace Game.Entities.Commands {
 	public class MoveCommand : HeroCommand {
 		private GridMovementComponent gridMovementComponent_;
@@ -11,12 +13,20 @@ namespace Game.Entities.Commands {
 		}
 
 		public override void Execute() {
-			if (entity_ != null && SelectionManager.Instance.SelectedTile != null) {
-				gridMovementComponent_.Move(SelectionManager.Instance.SelectedTile);
+			SelectionManager.Instance.RegisterTileSelectionCallback(Move);
+		}
+		public override void Cancel() {
+			Debug.Log("canceled a move command");
+			SelectionManager.Instance.DeregisterTileSelectionCallback(Move);
+		}
+		private void Move(Tile tile) {
+			if (entity_ != null && tile != null) {
+				gridMovementComponent_.Move(tile);
 			}
 		}
 		private void OnMovementFinished() {
 			isExecuting_ = false;
+			SelectionManager.Instance.DeregisterTileSelectionCallback(Move);
 		}
 		private void OnMovementStarted() {
 			isExecuting_ = true;
